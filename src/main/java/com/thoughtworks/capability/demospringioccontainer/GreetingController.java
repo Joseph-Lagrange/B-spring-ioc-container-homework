@@ -1,23 +1,19 @@
 package com.thoughtworks.capability.demospringioccontainer;
 
 import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GreetingController implements ApplicationContextAware {
+public class GreetingController {
 
-    private ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+    @Autowired
+    private ObjectFactory<GreetingService> prototypeBeanObjectFactory;
 
     private GreetingService getGreetingService() {
-        return applicationContext.getBean(GreetingService.class);
+        return prototypeBeanObjectFactory.getObject();
     }
 
     @GetMapping("/greet")

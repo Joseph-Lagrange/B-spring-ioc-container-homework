@@ -22,7 +22,6 @@ public class GreetingController implements ApplicationContextAware {
 
     @GetMapping("/greet")
     public String greet() {
-        System.out.println("-----" + getGreetingService());
         return getGreetingService().sayHi();
     }
 }
